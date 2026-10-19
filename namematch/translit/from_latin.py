@@ -40,6 +40,7 @@ def _segments(word):
     """'mohammad' -> [('C','m'), ('V','o'), ('C','h'), ...] (lettres doublées fusionnées)."""
     t = strip_accents(word).lower()
     t = "".join("'" if c in APOS else c for c in t if c.isalpha() or c in APOS)
+    t = t.replace("sch", "sh")
     segs, i = [], 0
     while i < len(t):
         two = t[i:i + 2]
@@ -89,6 +90,27 @@ def _vowel_options(segs, k, sc):
     return [("", 0), (ALEF[sc], 0.5)] if v == "a" else [("", 0)]
 
 
+# Arabe "plein" pour les noms d'origine hébraïque / étrangère : toutes les voyelles s'écrivent
+# (Hadar -> هدار, Orel -> أوريل, Rabinovich -> ربينوفيتش)
+PLENE_AR_CONS = {"ch": [("خ", 0), ("تش", 0.4)], "h": [("ه", 0), ("ح", 0.4)],
+                 "ts": [("تس", 0)], "tz": [("تس", 0)], "s": [("س", 0)], "t": [("ت", 0), ("ط", 0.5)]}
+
+
+def _vowel_options_plene_ar(segs, k):
+    kind, v = segs[k]
+    n = len(segs)
+    if k == 0:
+        base = {"o": "أو", "u": "أو", "i": "إي", "e": "إي"}.get(v, "أ")
+        return [(base, 0), ("ع" + base[1:], 0.4)]
+    if kind == "L":
+        return [({"a": "ا", "i": "ي", "u": "و"}[v], 0)]
+    if k == n - 1:
+        return {"a": [("ا", 0), ("ة", 0.5)], "e": [("يه", 0), ("ه", 0.4)],
+                "i": [("ي", 0)]}.get(v, [("و", 0)])
+    return {"a": [("ا", 0), ("", 0.4)], "e": [("ي", 0), ("", 0.3)],
+            "i": [("ي", 0)]}.get(v, [("و", 0)])
+
+
 def _cons_options(segs, k, sc):
     c = segs[k][1]
     last = k == len(segs) - 1
@@ -107,12 +129,22 @@ def _finalize(word, sc):
     return word
 
 
-def latin_to_script(word, sc, limit=3):
-    """Translittérations classées de 'word' vers 'ar' ou 'he'."""
+def latin_to_script(word, sc, limit=3, style="ar"):
+    """Translittérations classées de 'word' vers 'ar' ou 'he'.
+
+    style "he" + sc "ar" : nom d'origine hébraïque écrit en arabe, voyelles notées.
+    """
     segs = _segments(word)
+    plene = style == "he" and sc == "ar"
     beams = [("", 0.0)]
-    for k, (kind, _) in enumerate(segs):
-        opts = _cons_options(segs, k, sc) if kind == "C" else _vowel_options(segs, k, sc)
+    for k, (kind, c) in enumerate(segs):
+        if kind == "C":
+            opts = PLENE_AR_CONS.get(c) if plene else None
+            if plene and c == "ch" and k == len(segs) - 1:
+                opts = [("تش", 0)]                  # Rabinovich
+            opts = opts or _cons_options(segs, k, sc)
+        else:
+            opts = _vowel_options_plene_ar(segs, k) if plene else _vowel_options(segs, k, sc)
         beams = sorted(((txt + o, pen + p) for txt, pen in beams for o, p in opts),
                        key=lambda b: b[1])[:40]
     seen, out = set(), []

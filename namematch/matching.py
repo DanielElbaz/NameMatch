@@ -30,9 +30,10 @@ class Tok:
 class Name:
     def __init__(self, raw):
         self.raw = raw
-        toks = _merge_phrases(split_tokens(raw))
-        kept = [t for t in toks if not lexicon.is_particle(t)]
-        self.tokens = [Tok(t) for t in (kept or toks)]
+        toks = split_tokens(raw)
+        merged = _merge_phrases(toks)            # Abu Ghosh, Abdel Rahman : un seul mot
+        kept = [t for t in merged if not lexicon.is_particle(t)] or merged
+        self.tokens = [Tok(t) for t in kept]
 
     def first_chars(self):
         return {loose[0] for t in self.tokens for (_, loose) in t.keys if loose}

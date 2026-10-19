@@ -20,6 +20,8 @@ Le navigateur s'ouvre sur `http://127.0.0.1:8765`.
 - **Liste de noms** : colle une liste, ou charge un `.txt` / `.csv`. Tu obtiens toutes les variantes
   et le bouton **Télécharger le CSV** met tous les noms les uns sous les autres dans la colonne A.
 - **Ma liste CSV** (panneau de droite) : ajoute des noms un par un avec *+ Liste*, puis télécharge le CSV.
+- **Corriger (✎)** : si une transcription est fausse, clique sur ✎, tape la bonne orthographe et
+  valide avec Entrée. La correction est enregistrée et passe en tête la fois suivante (voir plus bas).
 - **Score** et **Comparer deux listes** : calculent la similarité entre deux noms ou deux listes.
 - L'interface existe en français, anglais, hébreu et arabe, avec l'affichage de droite à gauche pour l'hébreu et l'arabe.
 
@@ -36,6 +38,7 @@ de la commande tapée. Pour la forcer, utilise `--lang fr|en|he|ar` ou la variab
 | Score entre 2 noms | `score` / `s` | `note` | `ציון` / `התאמה` | `تقييم` / `تطابق` |
 | Rapprocher 2 CSV | `compare` / `c` | `comparer` | `השווה` | `قارن` / `مقارنة` |
 | Liste → CSV colonne A | `csv` | `liste` | `רשימה` | `قائمة` |
+| Corriger une transcription | `correct` / `fix` | `corriger` | `תקן` / `תיקון` | `صحح` / `تصحيح` |
 | Interface web | `ui` | `interface` | `ממשק` | `واجهة` |
 
 ```bash
@@ -45,6 +48,7 @@ python -m namematch variants "NOM" -o noms.csv      # .csv = noms en colonne A
 python -m namematch تقييم "NOM 1" "NOM 2"           # score de 0 à 100
 python -m namematch רשימה noms.txt -o variantes.csv --scripts en,ar
 python -m namematch compare a.csv b.csv --col-a nom --col-b name --threshold 75 -o out.csv
+python -m namematch תקן "NOM EN HÉBREU" "BONNE ORTHOGRAPHE"   # anglais, arabe ou hébreu
 ```
 
 Les options ont aussi des alias : `-n` = `--מספר` = `--عدد`, `-o` = `--פלט` = `--ملف`,
@@ -52,23 +56,39 @@ Les options ont aussi des alias : `-n` = `--מספר` = `--عدد`, `-o` = `--פ
 
 ## Fonctionnement
 
-1. **Lexique** (`namematch/data/lexicon.txt`) : environ 150 prénoms et noms courants (arabes et hébreux),
-   écrits en latin, en arabe et en hébreu. Les 3 premières orthographes latines sont celles qui sont
-   proposées en premier. **Pour corriger ou ajouter un nom, il suffit d'ajouter une ligne :**
+1. **Lexique** : environ 390 prénoms et noms courants, écrits en latin, en arabe et en hébreu, répartis
+   dans trois fichiers du dossier `namematch/data/` :
+
+   | Fichier | Contenu | Priorité |
+   |---|---|---|
+   | `user_lexicon.txt` | tes corrections (créé par ✎ ou par la commande `correct`) | la plus haute |
+   | `lexicon.txt` | noms d'origine arabe | |
+   | `lexicon_he.txt` | noms d'origine hébraïque / juive | |
+
+   Les 3 premières orthographes latines sont proposées en premier. Pour ajouter un nom à la main,
+   ajoute une ligne (la colonne arabe peut rester vide, elle est alors générée) :
    ```
    identifiant | variantes latines | variantes arabes | variantes hébraïques
    ```
-2. **Règles de translittération** pour les noms absents du lexique. Le mot hébreu ou arabe est découpé en
-   unités phonétiques (consonnes, alef, ayin, vav, yod, ה final…). On en déduit les orthographes anglaises
-   les plus probables, avec plusieurs conventions :
-   - la nisba **-awi** ;
-   - le schème **CaaCiC** ;
-   - la terminaison **-a / -eh** ;
-   - le geresh : ח' = kh, ג' = j, ע' = gh ;
-   - l'article **Al-**.
+   Les deux lexiques de base ont été rédigés de mémoire, pas tirés d'une base officielle : ils sont à
+   vérifier et à compléter.
 
+2. **Origine du nom** : un nom écrit en hébreu ne se lit pas de la même façon selon qu'il est d'origine
+   hébraïque ou arabe (ו = v ou ou, ב = v ou b, -אל = el ou al…). L'outil devine l'origine à partir
+   d'indices dans le mot (geresh, terminaisons typiques, א au milieu du mot…) et des autres mots du nom
+   (un prénom connu comme hébreu rend le nom de famille probablement hébreu, et inversement). S'il ne
+   peut pas trancher, il propose les deux lectures.
+
+3. **Règles de translittération** pour les noms absents du lexique. Le mot hébreu ou arabe est découpé en
+   unités phonétiques (consonnes, alef, ayin, vav, yod, ה final…). On en déduit les orthographes anglaises
+   les plus probables, avec deux jeux de conventions :
+   - noms arabes : nisba **-awi**, schème **CaaCiC**, terminaison **-a / -eh**, geresh (ח' = kh, ג' = j,
+     ע' = gh), article **Al-** ;
+   - noms hébreux : ו et ב lus « v », כ = kh, פ = f, צ = tz, terminaison **-el**, **-vitz**.
+
+   Pour un nom d'origine hébraïque, l'arabe est écrit d'après la prononciation, avec les voyelles.
    Une variante n'est gardée que si elle matche le nom d'origine (score ≥ 80).
-3. **Score** : chaque mot est réduit à un squelette consonantique qui ne dépend pas de l'écriture
+4. **Score** : chaque mot est réduit à un squelette consonantique qui ne dépend pas de l'écriture
    (clé fine et clé souple). Les mots sont appariés quel que soit leur ordre, et les particules
    (article, « fils de »…) sont ignorées.
 
@@ -77,8 +97,10 @@ Les options ont aussi des alias : `-n` = `--מספר` = `--عدد`, `-o` = `--פ
 ```
 namematch/
   scripts.py          détection d'écriture, normalisation, découpage
-  lexicon.py          chargement du lexique + recherche
-  data/lexicon.txt    le lexique (à enrichir)
+  lexicon.py          chargement des lexiques, recherche, enregistrement des corrections
+  data/lexicon.txt    noms d'origine arabe
+  data/lexicon_he.txt noms d'origine hébraïque
+  data/user_lexicon.txt  tes corrections (créé automatiquement)
   phonetic.py         squelettes consonantiques (clés de comparaison)
   matching.py         score entre deux noms
   translit/
@@ -87,6 +109,7 @@ namematch/
     from_latin.py     latin -> arabe / hébreu
     cross.py          arabe <-> hébreu lettre à lettre
     latin_spelling.py variantes d'un nom déjà en latin
+    origin.py         devine si un mot hébreu est d'origine hébraïque ou arabe
   variants.py         variantes d'un nom complet (N anglais + arabe + hébreu)
   csv_tools.py        lecture/écriture CSV, rapprochement de listes
   i18n.py             commandes et messages fr / en / he / ar

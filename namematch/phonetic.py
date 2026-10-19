@@ -26,7 +26,7 @@ ARABIZI = {"2": "", "3": "", "5": "x", "6": "t", "7": "H", "8": "G", "9": "q"}
 LATIN_DIGRAPHS = {"sh": "S", "kh": "x", "gh": "G", "th": "T", "dh": "D", "zh": "j",
                   "ph": "f", "ch": "x", "ts": "Z", "tz": "Z", "dj": "j"}
 LOOSE = str.maketrans({"S": "s", "Z": "s", "x": "h", "H": "h", "T": "t", "D": "d",
-                       "G": "g", "j": "g", "q": "k", "v": "f", "p": "f"})
+                       "G": "g", "j": "g", "q": "k", "v": "f", "p": "b"})
 
 
 def _semivowel(ch, i):
@@ -34,10 +34,21 @@ def _semivowel(ch, i):
     return ("w" if ch in "وו" else "y") if i == 0 else ""
 
 
+# noms étrangers écrits en arabe : تس = ts (צ), تش = ch
+AR_DIGRAPHS = {"تس": "Z", "تش": "x"}
+
+
 def ar_fine(tok):
     out, n = [], len(tok)
+    skip = False
     for i, ch in enumerate(tok):
-        if ch in "وي":
+        if skip:
+            skip = False
+            continue
+        if tok[i:i + 2] in AR_DIGRAPHS:
+            out.append(AR_DIGRAPHS[tok[i:i + 2]])
+            skip = True
+        elif ch in "وي":
             out.append(_semivowel(ch, i))
         elif ch == "ة":
             pass
@@ -59,10 +70,16 @@ def he_fine(tok, alt=False):
             out.append(HE_GERESH[ch])
             i += 2
             continue
-        if ch in "וי":
+        if alt and ch == "ו" and (i == 0 or last) and n > 2:
+            out.append("v")                        # ורד = Vered, זיו = Ziv
+        elif ch in "וי":
             out.append(_semivowel(ch, i))
         elif ch == "ה":
             out.append("" if last else "h")
+        elif alt and ch == "פ":
+            out.append("f")                        # פאדי = Fadi
+        elif alt and ch == "ץ" and tok[:i].endswith("בי"):
+            out.append("x")                        # -ביץ : Rabinovitz / Rabinovich
         elif alt and i > 0 and ch in HE_ALT:
             out.append(HE_ALT[ch])
         elif ch not in APOS:
@@ -73,6 +90,7 @@ def he_fine(tok, alt=False):
 
 def latin_fine(tok, ch_as_sh=False):
     t = strip_accents(tok).lower()
+    t = t.replace("sch", "sh")                     # Schwartz
     if ch_as_sh:                                   # "ch" à la française : Chadi, Michel
         t = t.replace("ch", "sh")
     t = "".join(c for c in t if c not in APOS)
@@ -143,7 +161,7 @@ def token_keys(tok):
             if not f:
                 continue
             keys.append(f)
-            if f.endswith("h") and len(f) > 2:
+            if f.endswith("h") and len(f) >= 2:
                 keys.append(f[:-1])
     seen, res = set(), []
     for f in keys:

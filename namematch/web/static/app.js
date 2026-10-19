@@ -15,6 +15,7 @@ const I18N = {
     ph_list_a: "Liste A", ph_list_b: "Liste B", threshold: "Seuil", compare: "Comparer",
     source: "Nom saisi", variants: "Variantes", lexicon: "lexique", rules: "règles", empty: "Liste vide",
     names: "noms", no_match: "Aucune correspondance au-dessus du seuil.", error: "Erreur",
+    fix: "Corriger", save: "Enregistrer", cancel: "Annuler", fixed: "Correction enregistrée", nothing: "Déjà la 1re variante",
   },
   en: {
     tagline: "Hebrew · Arabic · English — 100% local", tab_gen: "Generate", tab_batch: "Name list",
@@ -29,6 +30,7 @@ const I18N = {
     ph_list_a: "List A", ph_list_b: "List B", threshold: "Threshold", compare: "Compare",
     source: "Input name", variants: "Variants", lexicon: "lexicon", rules: "rules", empty: "Empty list",
     names: "names", no_match: "No match above the threshold.", error: "Error",
+    fix: "Fix", save: "Save", cancel: "Cancel", fixed: "Correction saved", nothing: "Already the first variant",
   },
   he: {
     tagline: "עברית · ערבית · אנגלית — מקומי לגמרי", tab_gen: "יצירה", tab_batch: "רשימת שמות",
@@ -43,6 +45,7 @@ const I18N = {
     ph_list_a: "רשימה א", ph_list_b: "רשימה ב", threshold: "סף", compare: "השווה",
     source: "השם שהוזן", variants: "גרסאות", lexicon: "מילון", rules: "כללים", empty: "הרשימה ריקה",
     names: "שמות", no_match: "אין התאמות מעל הסף.", error: "שגיאה",
+    fix: "תקן", save: "שמור", cancel: "ביטול", fixed: "התיקון נשמר", nothing: "זו כבר הגרסה הראשונה",
   },
   ar: {
     tagline: "العبرية · العربية · الإنجليزية — محلي بالكامل", tab_gen: "توليد", tab_batch: "قائمة أسماء",
@@ -57,6 +60,7 @@ const I18N = {
     ph_list_a: "القائمة أ", ph_list_b: "القائمة ب", threshold: "العتبة", compare: "قارن",
     source: "الاسم المدخل", variants: "الصيغ", lexicon: "قاموس", rules: "قواعد", empty: "القائمة فارغة",
     names: "أسماء", no_match: "لا توجد تطابقات فوق العتبة.", error: "خطأ",
+    fix: "تصحيح", save: "حفظ", cancel: "إلغاء", fixed: "تم حفظ التصحيح", nothing: "إنها الصيغة الأولى بالفعل",
   },
 };
 
@@ -171,10 +175,37 @@ function renderBasket() {
 let lastGen = null;
 
 function nameRow(text, first) {
-  return el("div", { class: "name" + (first ? " first" : "") },
+  const row = el("div", { class: "name" + (first ? " first" : "") },
     el("span", { dir: "auto" }, text),
-    el("button", { onclick: () => copyText(text) }, T("copy")),
-    el("button", { onclick: () => addToBasket([text]) }, T("add")));
+    el("div", { class: "acts" },
+      el("button", { onclick: () => copyText(text) }, T("copy")),
+      el("button", { onclick: () => addToBasket([text]) }, T("add")),
+      el("button", { class: "fix", title: T("fix"), onclick: () => editRow(row, text) }, "✎")));
+  return row;
+}
+
+// Corriger : la bonne orthographe est enregistrée (data/user_lexicon.txt) et passe en tête
+function editRow(row, text) {
+  const input = el("input", { dir: "auto", value: text });
+  const save = async () => {
+    const value = input.value.trim();
+    if (!value || !lastGen) return;
+    try {
+      const r = await api("/api/correct", { source: lastGen.input, value, count: +$("#gen-count").value || 3 });
+      toast(r.saved.length ? `${T("fixed")} ✓` : T("nothing"));
+      renderGen(r.result);
+    } catch (err) { toast(`${T("error")} : ${err.message}`); }
+  };
+  input.addEventListener("keydown", (e) => {
+    if (e.key === "Enter") save();
+    if (e.key === "Escape") renderGen(lastGen);
+  });
+  row.replaceChildren(input, el("div", { class: "acts" },
+    el("button", { class: "primary", onclick: save }, T("save")),
+    el("button", { onclick: () => renderGen(lastGen) }, T("cancel"))));
+  row.classList.add("editing");
+  input.focus();
+  input.select();
 }
 
 function card(title, names) {

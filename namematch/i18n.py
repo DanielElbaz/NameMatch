@@ -12,6 +12,8 @@ COMMANDS = {
     "compare": {"en": ["compare", "c"], "fr": ["comparer"],
                 "he": ["השווה", "השוואה"], "ar": ["قارن", "مقارنة"]},
     "csv": {"en": ["csv"], "fr": ["liste"], "he": ["רשימה", "טבלה"], "ar": ["قائمة", "جدول"]},
+    "correct": {"en": ["correct", "fix"], "fr": ["corriger"], "he": ["תקן", "תיקון"],
+                "ar": ["صحح", "تصحيح"]},
     "ui": {"en": ["ui", "web"], "fr": ["interface"], "he": ["ממשק"], "ar": ["واجهة"]},
 }
 
@@ -40,6 +42,12 @@ MESSAGES = {
     "no_column": {"fr": "Colonne introuvable", "en": "Column not found",
                   "he": "העמודה לא נמצאה", "ar": "العمود غير موجود"},
     "names": {"fr": "noms", "en": "names", "he": "שמות", "ar": "أسماء"},
+    "saved": {"fr": "Correction enregistrée", "en": "Correction saved",
+              "he": "התיקון נשמר", "ar": "تم حفظ التصحيح"},
+    "nothing": {"fr": "Rien à corriger : c'est déjà la 1re variante", "en": "Nothing to fix: already the first variant",
+                "he": "אין מה לתקן: זו כבר הגרסה הראשונה", "ar": "لا شيء للتصحيح: إنها الصيغة الأولى بالفعل"},
+    "word_count": {"fr": "Le nom corrigé doit avoir le même nombre de mots", "en": "The corrected name must have the same number of words",
+                   "he": "לשם המתוקן צריך להיות אותו מספר מילים", "ar": "يجب أن يحتوي الاسم المصحح على نفس عدد الكلمات"},
     "ui_running": {"fr": "Interface ouverte sur", "en": "UI running at",
                    "he": "הממשק פועל בכתובת", "ar": "الواجهة تعمل على"},
     "stop": {"fr": "Ctrl+C pour arrêter", "en": "Ctrl+C to stop",

@@ -84,6 +84,11 @@ button.ghost { background: none; color: var(--muted); }
 .name button { padding: 4px 8px; font-size: 12px; opacity: .75; }
 .name button:hover { opacity: 1; }
 .name.first span { font-weight: 600; }
+.name { flex-wrap: wrap; }
+.name span { flex: 1 1 120px; }
+.name .acts { display: flex; gap: 4px; margin-inline-start: auto; }
+.name.editing input { flex: 1 1 100%; padding: 6px 10px; font-size: 16px; }
+.name button.fix { font-size: 13px; }
 
 .hint, .muted { color: var(--muted); font-size: 13px; margin: 0; }
 .tok { border-top: 1px solid var(--line); padding: 10px 0; font-size: 14px; }

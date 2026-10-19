@@ -2,12 +2,16 @@
 
 Exemple : עדוי -> Adawi, Adwi, Edawi, Adawy...
 Chaque choix a une pénalité ; on garde les meilleures combinaisons (beam search).
+
+Deux styles de lecture de l'hébreu : "ar" pour un nom arabe écrit en hébreu
+(עדוי -> Adawi) et "he" pour un nom d'origine hébraïque (לוין -> Levin, אוראל -> Orel).
 """
 from .units import ar_units, he_units
 
 BEAM = 60
 # voyelles insérées entre deux consonnes (l'hébreu et l'arabe ne les écrivent pas)
 FILLED = [("a", 0), ("e", 0.5), ("i", 0.9), ("o", 0.9), ("u", 1.0)]
+FILLED_HE = [("a", 0), ("e", 0.1), ("i", 0.7), ("o", 0.8), ("u", 0.9)]
 
 
 class State:
@@ -136,6 +140,60 @@ def _chunk_end(units, k, st):
     return _opts([("a", 0), ("ah", 0.3), ("eh", 0.4), ("e", 0.5)], "V", "V")
 
 
+def _before_final_consonant(units, k):
+    return k == len(units) - 2 and _kind(units, k + 1) == "C"
+
+
+def _chunk_alef_he(units, k, st):
+    if k == 0 or (st.ends == "V" and _kind(units, k - 1) in ("ALEF", "AYN")):
+        return _chunk_alef(units, k, st)
+    if _before_final_consonant(units, k):        # -אל : Orel, Daniel, Yoel
+        return _opts([("e", 0), ("a", 0.3)], "V", "V")
+    return _opts([("a", 0), ("e", 0.4)], "V", "V")
+
+
+def _chunk_w_he(units, k, st):
+    n, nxt = len(units), _kind(units, k + 1)
+    after_v = st.ends == "V"
+    if k == 0:
+        return _opts([("V", 0), ("W", 0.6)], "C", "C")
+    if k == n - 1:
+        if after_v:
+            return _opts([("v", 0)], "C", "C")
+        return _opts([("o", 0), ("u", 0.3)], "V", "V")
+    if nxt == "Y":                               # Levi, Levin, Halevi
+        if after_v:
+            return _opts([("vi", 0)], "X", "V", 2)
+        return _opts([("evi", 0), ("avi", 0.3), ("vi", 0.5)], "X", "V", 2)
+    if nxt == "ALEF" and not after_v:            # Yoav, Yoel
+        return _opts([("o", 0)], "V", "V") + _opts([("v", 0.4)], "C", "C")
+    if nxt in ("ALEF", "END") or after_v:
+        return _opts([("v", 0)], "C", "C") + _opts([("o", 0.6)], "V", "V")
+    return _opts([("o", 0), ("u", 0.3), ("ou", 0.8)], "V", "V")
+
+
+def _chunk_ww_he(units, k, st):
+    return _opts([("V" if k == 0 else "v", 0), ("w" if k else "W", 0.5)], "C", "C")
+
+
+def _chunk_y_he(units, k, st):
+    if k > 0 and st.ends != "V" and _kind(units, k + 1) == "C" and k != len(units) - 1:
+        return _opts([("i", 0), ("e", 0.5), ("ee", 0.6)], "V", "V")
+    return _chunk_y(units, k, st)
+
+
+def _chunk_yy_he(units, k, st):
+    if k > 0 and st.ends != "V" and _kind(units, k + 1) not in ("ALEF", "END", "AYN"):
+        return _opts([("ay", 0), ("ai", 0.2), ("ei", 0.4)], "V", "V")
+    return _chunk_yy(units, k, st)
+
+
+def _chunk_end_he(units, k, st):
+    if st.ends == "V":
+        return _opts([("a", 0), ("ah", 0.4)], "V", "V")
+    return _opts([("a", 0), ("ah", 0.4), ("e", 0.5)], "V", "V")
+
+
 def _chunk_c(units, k, st):
     opts = units[k][1]
     if k > 0 and units[k - 1] == units[k]:       # consonne doublée (ex. לל)
@@ -152,33 +210,37 @@ _CHUNKS = {
     "V": lambda u, k, st: _opts([(u[k][1], 0)], "V", "V"),
     "SUK": lambda u, k, st: _opts([("", 0)], "X", "C"),
 }
+_CHUNKS_HE = dict(_CHUNKS, ALEF=_chunk_alef_he, W=_chunk_w_he, WW=_chunk_ww_he, Y=_chunk_y_he,
+                  YY=_chunk_yy_he, END=_chunk_end_he)
 
 
-def _gap_options(st, is_final, after_long_a):
+def _gap_options(st, is_final, after_long_a, style):
     """Voyelle à insérer entre deux consonnes."""
+    filled = FILLED_HE if style == "he" else FILLED
     if is_final and after_long_a:  # schème CaaCiC : Jaber, Maher, Khaled, Adel
         return [("e", 0), ("i", 0.3), ("a", 0.5)]
     if not st.c_after_v:          # déjà 2 consonnes de suite (ou début de mot) : voyelle obligatoire
-        return FILLED
+        return filled
     if is_final:                  # Ahm-a-d, Has-a-n : voyelle avant la dernière consonne
-        return FILLED + [("", 1.0)]
+        return filled + [("", 1.0)]
     return [("", 0), ("a", 0.6), ("e", 0.9)]     # Ah-m-ad, Man-s-our
 
 
-def render(units, limit=12):
+def render(units, limit=12, style="ar"):
     """Liste d'orthographes latines classées de la plus probable à la moins probable."""
     if not units:
         return []
+    chunks = _CHUNKS_HE if style == "he" else _CHUNKS
     n = len(units)
     beams = {0: [State()]}
     finals = []
     for k in range(n):
         for st in beams.pop(k, []):
-            for text, pen, starts, ends, used in _CHUNKS[units[k][0]](units, k, st):
+            for text, pen, starts, ends, used in chunks[units[k][0]](units, k, st):
                 is_final = k + used >= n
                 gaps = [("", 0)]
                 if starts == "C" and st.ends == "C":
-                    gaps = _gap_options(st, is_final, _kind(units, k - 2) == "ALEF")
+                    gaps = _gap_options(st, is_final, _kind(units, k - 2) == "ALEF", style)
                 for gap, gpen in gaps:
                     if ends == "C":
                         c_after_v = bool(gap) or st.ends == "V" or len(text) > 1 and text[0] in "aeiou"
@@ -200,8 +262,8 @@ def render(units, limit=12):
     return [w for w, _ in ranked[:limit]]
 
 
-def hebrew_to_latin(tok, limit=12):
-    return render(he_units(tok), limit)
+def hebrew_to_latin(tok, limit=12, style="ar"):
+    return render(he_units(tok, style), limit, style)
 
 
 def arabic_to_latin(tok, limit=12):

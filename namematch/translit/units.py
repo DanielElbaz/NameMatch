@@ -23,6 +23,17 @@ HE_CONS = {
     "ק": [("k", 0), ("q", 0.4)], "ר": [("r", 0)], "ש": [("sh", 0), ("s", 0.7)],
     "ת": [("t", 0)],
 }
+# Lecture des noms d'origine hébraïque : ב/כ/פ changent selon la position, צ = tz
+HE_STYLE_INITIAL = {
+    "ב": [("b", 0), ("v", 0.6)], "כ": [("k", 0), ("kh", 0.5)], "פ": [("p", 0), ("f", 0.5)],
+}
+HE_STYLE = {
+    "ב": [("v", 0), ("b", 0.4)], "כ": [("kh", 0), ("ch", 0.2), ("k", 0.4)],
+    "ך": [("kh", 0), ("ch", 0.2), ("k", 0.4)], "פ": [("f", 0), ("p", 0.4)],
+    "ף": [("f", 0), ("p", 0.4)], "צ": [("tz", 0), ("ts", 0.3), ("z", 0.6)],
+    "ץ": [("tz", 0), ("ts", 0.3), ("z", 0.6)], "ח": [("h", 0), ("ch", 0.2), ("kh", 0.4)],
+    "ק": [("k", 0)], "ג": [("g", 0)], "ש": [("sh", 0), ("s", 0.6)],
+}
 HE_GERESH = {
     "ג": [("j", 0), ("g", 0.6)], "ז": [("j", 0), ("zh", 0.6)], "צ": [("d", 0), ("dh", 0.5)],
     "ת": [("th", 0), ("t", 0.5)], "ד": [("dh", 0), ("d", 0.3), ("z", 0.8)],
@@ -44,7 +55,17 @@ AR_HARAKAT = {"َ": "a", "ِ": "i", "ُ": "u"}
 AR_SUKUN, AR_SHADDA = "ْ", "ّ"
 
 
-def he_units(tok):
+def _he_cons(ch, i, style):
+    if style == "he":
+        if i == 0 and ch in HE_STYLE_INITIAL:
+            return HE_STYLE_INITIAL[ch]
+        if ch in HE_STYLE:
+            return HE_STYLE[ch]
+    return HE_CONS[ch]
+
+
+def he_units(tok, style="ar"):
+    """style : "ar" (nom arabe écrit en hébreu) ou "he" (nom d'origine hébraïque)."""
     units, n, i = [], len(tok), 0
     while i < n:
         ch = tok[i]
@@ -68,7 +89,7 @@ def he_units(tok):
         elif ch == "ה" and last and i > 0:
             units.append(("END", None))
         elif ch in HE_CONS:
-            units.append(("C", HE_CONS[ch]))
+            units.append(("C", _he_cons(ch, i, style)))
         i += 1
     return units
 

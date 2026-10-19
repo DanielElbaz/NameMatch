@@ -8,7 +8,7 @@ from http.server import SimpleHTTPRequestHandler, ThreadingHTTPServer
 from ..csv_tools import compare_lists
 from ..i18n import t
 from ..matching import score_names
-from ..variants import name_variants
+from ..variants import correct_name, name_variants
 
 STATIC = os.path.join(os.path.dirname(__file__), "static")
 MAX_BATCH = 5000
@@ -36,6 +36,12 @@ def api_compare(body):
     return {"rows": compare_lists(rows_a, "nom", rows_b, "nom", threshold, top=3)}
 
 
+def api_correct(body):
+    source, value = str(body.get("source", "")), str(body.get("value", ""))
+    saved = correct_name(source, value)
+    return {"saved": saved, "result": name_variants(source, n=_count(body))}
+
+
 def _count(body):
     try:
         return max(1, min(int(body.get("count", 3)), 20))
@@ -44,7 +50,8 @@ def _count(body):
 
 
 ROUTES = {"/api/variants": api_variants, "/api/batch": api_batch,
-          "/api/score": api_score, "/api/compare": api_compare}
+          "/api/score": api_score, "/api/compare": api_compare,
+          "/api/correct": api_correct}
 
 
 class Handler(SimpleHTTPRequestHandler):

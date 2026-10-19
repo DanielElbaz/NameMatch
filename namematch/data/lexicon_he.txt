@@ -1,0 +1,278 @@
+# Lexique NameMatch — noms d'origine hébraïque / juive (Israël)
+# Format : id | variantes latines | variantes arabes | variantes hébraïques
+# Les 3 premières variantes latines sont proposées en priorité (orthographe anglaise courante en Israël).
+# Colonne arabe vide = transcription générée par les règles.
+# Rédigé de mémoire (pas d'une base officielle) : à vérifier et compléter. Les corrections faites
+# avec le bouton "Corriger" vont dans user_lexicon.txt et passent devant ce fichier.
+#
+# --- particules ---
+~ben      | Ben                                    | بين                 | בן
+~bar      | Bar                                    |                     | בר
+#
+# --- prénoms masculins ---
+avraham   | Avraham, Abraham, Avram                | أبراهام              | אברהם
+yitzhak   | Yitzhak, Itzhak, Yitzchak, Isaac        | يتسحاق               | יצחק, יצחאק
+yaakov    | Yaakov, Yakov, Jacob, Yaacov            | يعقوب                | יעקב, יעקוב
+moshe     | Moshe, Moshé, Moses, Moche              | موشيه                | משה
+david     | David, Dovid, Dudi                      | دافيد, داود           | דוד, דויד
+shlomo    | Shlomo, Shelomo, Solomon                | شلومو                | שלמה, שלומו
+yosef     | Yosef, Yossef, Joseph                   | يوسف                 | יוסף
+yossi     | Yossi, Yosi, Yossy                      | يوسي                 | יוסי
+daniel    | Daniel, Danyel, Dani                    | دانيال               | דניאל
+michael   | Michael, Michel, Mikhael                | ميخائيل              | מיכאל
+haim      | Haim, Chaim, Hayim                      | حاييم                | חיים
+eliyahu   | Eliyahu, Eliahu, Elijah                 | إلياهو               | אליהו
+binyamin  | Binyamin, Benjamin, Benyamin            | بنيامين              | בנימין
+shimon    | Shimon, Simon, Shimone                  | شمعون                | שמעון
+reuven    | Reuven, Reuben, Ruben                   | رؤوفين               | ראובן
+yehuda    | Yehuda, Yehudah, Judah                  | يهودا                | יהודה
+shmuel    | Shmuel, Samuel, Shmulik                 | شموئيل               | שמואל
+yisrael   | Israel, Yisrael, Yisroel                | يسرائيل              | ישראל
+ariel     | Ariel, Arielle                          | أريئيل               | אריאל
+itai      | Itai, Itay, Ittai                       |                      | איתי
+noam      | Noam, Noame                             |                      | נועם
+eitan     | Eitan, Etan, Ethan                      |                      | איתן
+yonatan   | Yonatan, Jonathan, Yehonatan            |                      | יונתן, יהונתן
+uri       | Uri, Ouri, Ury                          |                      | אורי
+amit      | Amit, Amitt                             |                      | עמית
+ido       | Ido, Iddo                               |                      | עידו
+yuval     | Yuval, Youval                           |                      | יובל
+roi       | Roi, Roy, Roee                          |                      | רועי
+guy       | Guy, Gai                                |                      | גיא, גאי
+tal       | Tal, Tall                               |                      | טל
+nadav     | Nadav, Nadab                            |                      | נדב
+yair      | Yair, Yaïr                              |                      | יאיר
+asaf      | Asaf, Assaf                             |                      | אסף
+gil       | Gil, Guil                               |                      | גיל
+erez      | Erez, Eretz                             |                      | ארז
+oren      | Oren, Orenn                             |                      | אורן
+ofer      | Ofer, Opher, Offer                      |                      | עופר
+ronen     | Ronen, Ronan                            |                      | רונן
+ran       | Ran                                     |                      | רן
+dan       | Dan, Danny                              |                      | דן
+doron     | Doron, Dorone                           |                      | דורון
+eyal      | Eyal, Eial, Ayal                        |                      | אייל
+elad      | Elad, Eladd                             |                      | אלעד
+alon      | Alon, Allon                             |                      | אלון
+avi       | Avi, Avy                                |                      | אבי
+beni      | Beni, Benny, Bennie                     |                      | בני
+dor       | Dor                                     |                      | דור
+lior      | Lior, Liore                             |                      | ליאור
+liran     | Liran, Lirane                           |                      | לירן
+shai      | Shai, Shay, Chai                        |                      | שי
+meir      | Meir, Meyer, Mayer                      |                      | מאיר
+netanel   | Netanel, Nethanel, Natanel              |                      | נתנאל
+natan     | Natan, Nathan                           |                      | נתן
+orel      | Orel, Oriel, Orrel                      |                      | אוראל
+oz        | Oz                                      |                      | עוז
+ohad      | Ohad, Ohhad                             |                      | אוהד
+raz       | Raz                                     |                      | רז
+yoav      | Yoav, Joav                              |                      | יואב
+yoel      | Yoel, Joel                              |                      | יואל
+yarden    | Yarden, Jordan                          |                      | ירדן
+barak     | Barak, Baraq                            |                      | ברק
+kfir      | Kfir, Kefir                             |                      | כפיר
+matan     | Matan, Mattan                           |                      | מתן
+nir       | Nir, Neer                               |                      | ניר
+ofir      | Ofir, Ophir, Ofeer                      |                      | אופיר
+omri      | Omri, Omry                              |                      | עמרי
+or        | Or, Orr                                 |                      | אור
+rotem     | Rotem                                   |                      | רותם
+sagi      | Sagi, Sagie                             |                      | שגיא
+shahar    | Shahar, Shachar                         |                      | שחר
+tomer     | Tomer                                   |                      | תומר
+ziv       | Ziv                                     |                      | זיו
+zohar     | Zohar                                   |                      | זוהר
+gal       | Gal                                     |                      | גל
+hen       | Hen, Chen                               |                      | חן
+idan      | Idan                                    |                      | עידן
+itzik     | Itzik, Itsik                            |                      | איציק
+kobi      | Kobi, Kobe, Coby                        |                      | קובי
+moti      | Moti, Motti                             |                      | מוטי
+gabriel   | Gabriel, Gavriel                        |                      | גבריאל, גבריאל
+refael    | Refael, Raphael, Rafael                 |                      | רפאל
+rafi      | Rafi, Raffi                             |                      | רפי
+aviv      | Aviv                                    |                      | אביב
+hagai     | Hagai, Haggai, Chagai                   |                      | חגי
+gilad     | Gilad, Guilad                           |                      | גלעד
+boaz      | Boaz                                    |                      | בועז
+eli       | Eli, Ely                                |                      | אלי
+efraim    | Efraim, Ephraim                         |                      | אפרים
+menachem  | Menachem, Menahem                       |                      | מנחם
+mordechai | Mordechai, Mordehai, Mordekhai          |                      | מרדכי
+pinchas   | Pinchas, Pinhas                         |                      | פנחס
+tzvi      | Tzvi, Zvi, Tsvi                         |                      | צבי
+zeev      | Zeev, Ze'ev, Zev                        |                      | זאב
+arie      | Arie, Aryeh, Arieh                      |                      | אריה
+dov       | Dov                                     |                      | דב, דוב
+yigal     | Yigal, Igal                             |                      | יגאל
+yehoshua  | Yehoshua, Joshua, Shuki                 |                      | יהושע
+ehud      | Ehud                                    |                      | אהוד
+amos      | Amos                                    |                      | עמוס
+amnon     | Amnon                                   |                      | אמנון
+uzi       | Uzi, Uzzi                               |                      | עוזי
+shaul     | Shaul, Saul                             |                      | שאול
+gideon    | Gideon, Gidon                           |                      | גדעון
+ilan      | Ilan                                    |                      | אילן
+shalom    | Shalom                                  | شالوم                | שלום
+nissim    | Nissim, Nisim                           |                      | ניסים
+avner     | Avner                                   |                      | אבנר
+avishai   | Avishai, Avishay                        |                      | אבישי
+elisha    | Elisha                                  |                      | אלישע
+neria     | Neria, Neriya, Neriah                   |                      | נריה
+hillel    | Hillel, Hilel                           |                      | הלל
+akiva     | Akiva, Akiba                            |                      | עקיבא
+asher     | Asher                                   |                      | אשר
+naftali   | Naftali                                 |                      | נפתלי
+yishai    | Yishai, Ishai                           |                      | ישי
+elchanan  | Elchanan, Elhanan                       |                      | אלחנן
+itamar    | Itamar                                  |                      | איתמר
+eliran    | Eliran                                  |                      | אלירן
+liel      | Liel                                    |                      | ליאל
+elior     | Elior                                   |                      | אליאור
+omer      | Omer                                    |                      | עומר
+amir_he   | Amir                                    |                      | אמיר
+yehonatan | Yehonatan, Jonathan                     |                      | יהונתן
+#
+# --- prénoms féminins ---
+sarah     | Sarah, Sara                             | سارة                 | שרה
+rivka     | Rivka, Rivkah, Rebecca                  | رفقة                 | רבקה
+rachel    | Rachel, Rahel, Rakhel                   | راحيل                | רחל
+leah      | Leah, Lea                               | ليئة                 | לאה
+miriam    | Miriam, Myriam, Mirjam                  | مريام                | מרים
+esther    | Esther, Ester                           | إستير                | אסתר
+hana      | Hana, Hannah, Chana                     | حنا                  | חנה
+ruth      | Ruth, Rut                               | راعوث                | רות
+naomi     | Naomi, Noami                            | نعومي                | נעמי
+tamar     | Tamar                                   |                      | תמר
+noa       | Noa, Noah                               |                      | נועה
+shira     | Shira, Shirah                           |                      | שירה
+maya      | Maya, Maia                              |                      | מאיה, מיה
+yael      | Yael, Jael, Yaël                        |                      | יעל
+michal    | Michal, Mikhal                          |                      | מיכל
+adi       | Adi, Addi                               |                      | עדי
+hadar     | Hadar                                   |                      | הדר
+inbal     | Inbal                                   |                      | ענבל
+keren     | Keren                                   |                      | קרן
+liat      | Liat                                    |                      | ליאת
+limor     | Limor                                   |                      | לימור
+merav     | Merav                                   |                      | מירב
+orly      | Orly, Orli                              |                      | אורלי
+osnat     | Osnat                                   |                      | אסנת
+sigal     | Sigal                                   |                      | סיגל
+tali      | Tali, Taly                              |                      | טלי
+yifat     | Yifat, Ifat                             |                      | יפעת
+dana      | Dana                                    |                      | דנה
+hila      | Hila, Hilla                             |                      | הילה
+ayelet    | Ayelet                                  |                      | איילת
+efrat     | Efrat, Ephrat                           |                      | אפרת
+galit     | Galit                                   |                      | גלית
+irit      | Irit                                    |                      | עירית
+neta      | Neta, Netta                             |                      | נטע
+noga      | Noga                                    |                      | נוגה
+ortal     | Ortal                                   |                      | אורטל
+rinat     | Rinat                                   |                      | רינת
+ronit     | Ronit                                   |                      | רונית
+shani     | Shani, Shany                            |                      | שני
+shiri     | Shiri                                   |                      | שירי
+sivan     | Sivan                                   |                      | סיון, סיוון
+smadar    | Smadar                                  |                      | סמדר
+tova      | Tova, Tovah                             |                      | טובה
+vered     | Vered                                   |                      | ורד
+hagit     | Hagit, Chagit                           |                      | חגית
+dafna     | Dafna, Daphna                           |                      | דפנה
+hadas     | Hadas, Hadass                           |                      | הדס
+ilana     | Ilana                                   |                      | אילנה
+kineret   | Kineret, Kinneret                       |                      | כנרת
+maayan    | Maayan, Ma'ayan                         |                      | מעיין
+moran     | Moran                                   |                      | מורן
+nofar     | Nofar                                   |                      | נופר
+odelia    | Odelia, Odeliya                         |                      | אודליה
+orit      | Orit                                    |                      | אורית
+revital   | Revital                                 |                      | רויטל
+shlomit   | Shlomit                                 |                      | שלומית
+tehila    | Tehila, Tehilla                         |                      | תהילה
+yehudit   | Yehudit, Judith                         |                      | יהודית
+batya     | Batya, Batia                            |                      | בתיה
+chaya     | Chaya, Haya                             |                      | חיה
+dvora     | Dvora, Devora, Deborah                  |                      | דבורה
+elisheva  | Elisheva                                |                      | אלישבע
+malka     | Malka                                   |                      | מלכה
+ora       | Ora                                     |                      | אורה
+rina      | Rina                                    |                      | רינה
+shoshana  | Shoshana                                |                      | שושנה
+zahava    | Zahava                                  |                      | זהבה
+ayala     | Ayala                                   |                      | איילה
+avigail   | Avigail, Abigail                        |                      | אביגיל
+eden      | Eden                                    |                      | עדן
+hodaya    | Hodaya                                  |                      | הודיה
+mor       | Mor                                     |                      | מור
+nitzan    | Nitzan, Nitsan                          |                      | ניצן
+romi      | Romi, Romy                              |                      | רומי
+talia     | Talia, Talya                            |                      | טליה
+lihi      | Lihi                                    |                      | ליהי
+yaara     | Yaara, Yaarah                           |                      | יערה
+#
+# --- noms de famille ---
+cohen     | Cohen, Kohen, Cohn                      | كوهين                | כהן, כוהן
+levi      | Levi, Levy, Halevi                      | ليفي                 | לוי, הלוי
+mizrahi   | Mizrahi, Mizrachi, Misrahi              | مزراحي               | מזרחי
+peretz    | Peretz, Perez, Peres                    | بيرتس                | פרץ
+biton     | Biton, Bitton                           | بيطون                | ביטון
+dahan     | Dahan                                   | دهان                 | דהן
+friedman  | Friedman, Fridman                       | فريدمان              | פרידמן
+elbaz     | Elbaz, Albaz, Elbez                     | البز                 | אלבז, אלבאז
+amar      | Amar, Ammar                             | عمار                 | עמר, אמר
+ohana     | Ohana, Ouhana                           | أوحنا                | אוחנה
+azoulay   | Azoulay, Azulay, Azoulai                | أزولاي               | אזולאי
+katz      | Katz, Kats                              | كاتس                 | כץ
+levin     | Levin, Lewin, Levine                    | ليفين                | לוין, לווין
+shapira   | Shapira, Shapiro, Schapira              | شابيرا               | שפירא, שפירו
+gabay     | Gabay, Gabai, Gabbay                    |                      | גבאי
+ben-david | Ben David, Ben-David                    | بن دافيد, بين دافيد  | בן דוד
+ohayon    | Ohayon, Ohaion                          |                      | אוחיון
+vaknin    | Vaknin, Waknin                          |                      | וקנין
+ben-haim  | Ben Haim, Ben Chaim                     | بن حاييم, بين حاييم  | בן חיים
+edri      | Edri, Edery, Idri                       |                      | אדרי
+attias    | Attias, Atias                           |                      | אטיאס, עטיאס
+abutbul   | Abutbul, Aboutboul                      |                      | אבוטבול
+sasson    | Sasson, Sason                           |                      | ששון
+golan     | Golan                                   |                      | גולן
+klein     | Klein, Kline                            |                      | קליין
+rosenberg | Rosenberg, Rozenberg                    |                      | רוזנברג
+goldstein | Goldstein, Goldshtein                   |                      | גולדשטיין
+weiss     | Weiss, Vais, Weis                       |                      | וייס, ויס
+schwartz  | Schwartz, Shvartz, Schwarz              |                      | שוורץ, שורץ
+kaplan    | Kaplan                                  |                      | קפלן
+segal     | Segal, Segall, Siegel                   |                      | סגל
+rabinovich | Rabinovich, Rabinovitz, Rabinowitz     |                      | רבינוביץ, רבינוביץ'
+abramovich | Abramovich, Abramovitz, Abramowitz     |                      | אברמוביץ, אברמוביץ'
+ashkenazi | Ashkenazi, Ashkenazy                    |                      | אשכנזי
+sharabi   | Sharabi, Sharaby                        |                      | שרעבי
+hazan     | Hazan, Chazan, Hazzan                   |                      | חזן
+nahum     | Nahum, Nachum                           |                      | נחום
+elmaleh   | Elmaleh, Elmalich, Elmaliach            |                      | אלמליח
+buzaglo   | Buzaglo, Bouzaglo                       |                      | בוזגלו
+turgeman  | Turgeman, Tourgeman                     |                      | תורג'מן
+swissa    | Swissa, Suissa                          |                      | סויסה
+malul     | Malul, Maloul                           |                      | מלול
+shitrit   | Shitrit                                 |                      | שטרית
+amsalem   | Amsalem, Amsellem                       |                      | אמסלם
+elkayam   | Elkayam                                 |                      | אלקיים
+toledano  | Toledano                                |                      | טולדנו
+dayan     | Dayan                                   |                      | דיין
+sabag     | Sabag, Sabbagh                          |                      | סבג
+moyal     | Moyal                                   |                      | מויאל
+hasson    | Hasson, Hason                           |                      | חסון
+navon     | Navon                                   |                      | נבון
+baruch    | Baruch, Baruh                           |                      | ברוך
+yitzhaki  | Yitzhaki, Itzhaki                       |                      | יצחקי
+horowitz  | Horowitz, Horovitz                      |                      | הורוביץ
+berkowitz | Berkowitz, Berkovich, Berkovitz         |                      | ברקוביץ
+gross     | Gross                                   |                      | גרוס
+ifergan   | Ifergan, Ifargan                        |                      | יפרגן
+lugasi    | Lugasi, Lugassy                         |                      | לוגסי
+kadosh    | Kadosh                                  |                      | קדוש
+assulin   | Assulin, Asulin                         |                      | אסולין
+ben-shimon | Ben Shimon                             | بن شمعون, بين شمعون | בן שמעון
+ben-ami   | Ben Ami                                 | بن عامي, بين عامي    | בן עמי

@@ -12,7 +12,7 @@ import sys
 from . import csv_tools
 from .i18n import COMMANDS, OPTIONS, resolve_lang, t
 from .matching import Name, score_names
-from .variants import name_variants
+from .variants import correct_name, name_variants
 
 SCRIPT_KEYS = {"en": "latin", "ar": "arabic", "he": "hebrew"}
 
@@ -97,6 +97,17 @@ def cmd_csv(args, lang):
     print(f"{len(names)} {t('names', lang)} -> {out}")
 
 
+def cmd_correct(args, lang):
+    try:
+        saved = correct_name(args.source, args.value)
+    except ValueError:
+        sys.exit(t("word_count", lang))
+    if not saved:
+        print(t("nothing", lang))
+    for tok, word in saved:
+        print(f"{t('saved', lang)} : {tok} -> {word}")
+
+
 def cmd_ui(args, lang):
     from .web.server import serve
     serve(port=args.port, open_browser=not args.no_browser, lang=lang)
@@ -141,6 +152,11 @@ def build_parser():
     _add(b, "--count", type=int, default=3)
     _add(b, "--out")
     b.add_argument("--scripts", default="en,ar,he", help="écritures à inclure : en,ar,he")
+
+    k = add_cmd("correct", cmd_correct,
+                "corriger une transcription (enregistrée dans data/user_lexicon.txt)")
+    k.add_argument("source", help="le nom tel qu'il est écrit (ex. en hébreu)")
+    k.add_argument("value", help="la bonne orthographe (anglais, arabe ou hébreu)")
 
     u = add_cmd("ui", cmd_ui, "interface web locale")
     _add(u, "--port", type=int, default=8765)

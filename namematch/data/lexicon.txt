@@ -7,9 +7,7 @@
 # --- particules ---
 ~abu      | Abu, Abou, Abo, Aboo                  | أبو, ابو            | אבו
 ~ibn      | Ibn, Bin                               | ابن, بن             | אבן, בין
-~ben      | Ben                                    |                     | בן
 ~bint     | Bint, Bat                              | بنت                 | בת
-~bar      | Bar                                    |                     | בר
 ~al       | Al, El, Ul                             | ال                  | אל
 ~umm      | Umm, Um, Om                            | أم, ام              | אום, אם
 ~haj      | Haj, Hajj, Hajj                        | حاج                 | חאג', חאג
@@ -135,30 +133,3 @@ adnan     | Adnan, Adnane                          | عدنان               | 
 sabri     | Sabri, Sabry                           | صبري                | צברי, סברי
 sharif    | Sharif, Sherif, Shareef                | شريف                | שריף, שריף
 #
-# --- prénoms / noms hébreux et juifs fréquents ---
-cohen     | Cohen, Kohen, Cohn, Kahn               | كوهين, كوهن          | כהן, כוהן
-levi      | Levi, Levy, Lewi                       | ليفي, لاوي           | לוי
-mizrahi   | Mizrahi, Mizrachi, Misrahi             | مزراحي               | מזרחי
-peretz    | Peretz, Perez, Peres                   | بيرتس, بيرس          | פרץ
-biton     | Biton, Bitton, Bitan                   | بيطون, بيتون         | ביטון
-dahan     | Dahan, Dahhan                          | دهان                 | דהן
-avraham   | Avraham, Abraham, Avram                | أبراهام               | אברהם
-friedman  | Friedman, Fridman, Freedman            | فريدمان              | פרידמן
-elbaz     | Elbaz, Albaz, Elbez, Albez             | البز                 | אלבז, אלבאז
-amar      | Amar, Ammar, Ammar                     | عمار                 | עמר, עמאר, אמר
-ohana     | Ohana, Ouhana, Ohanna                  | أوحنا                | אוחנה, אוחנא
-azoulay   | Azoulay, Azulay, Azoulai               | أزولاي               | אזולאי, אזולאיי
-yosef     | Yosef, Joseph, Yossef                  | يوسف                 | יוסף
-yossi     | Yossi, Yosi, Yossy                     | يوسي                 | יוסי
-david     | David, Dovid                           | داود, دافيد           | דוד
-moshe     | Moshe, Moses, Moche                    | موشيه                | משה
-shlomo    | Shlomo, Shelomo, Solomon               | شلومو                | שלמה
-yaakov    | Yaakov, Yakov, Jacob                   | يعقوب                 | יעקב
-yitzhak   | Yitzhak, Yitzchak, Itzhak, Isaac       | يتسحاق                | יצחק
-eliyahu   | Eliyahu, Eliahu, Elijah                | إلياهو                | אליהו
-binyamin  | Binyamin, Benjamin, Benyamin           | بنيامين               | בנימין
-rachel    | Rachel, Rahel, Rakhel                  | راحيل                 | רחל
-miriam    | Miriam, Myriam, Mirjam                 | مريام                 | מרים
-daniel    | Daniel, Danielle, Danyel               | دانيال, دانيئيل        | דניאל
-michael   | Michael, Mikhael, Michel               | ميخائيل               | מיכאל
-haim      | Haim, Chaim, Hayim                     | حاييم                 | חיים
