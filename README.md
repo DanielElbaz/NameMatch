@@ -3,11 +3,8 @@
 Rapprochement et translittération de noms **hébreu ↔ arabe ↔ anglais**. Tout tourne en local :
 pas d'API ni de dépendance obligatoire (Python 3.8+).
 
-```
-מוחמד עדוי  →  Mohammad Adawi · Mohammed Adawi · Muhammad Adawi
-               محمد عدوي
-               מוחמד עדוי
-```
+Un nom saisi en hébreu, en arabe ou en anglais donne N orthographes anglaises (3 par défaut),
+la transcription arabe et la transcription hébraïque.
 
 ## Interface (recommandé)
 
@@ -42,10 +39,10 @@ de la commande tapée. Pour la forcer, utilise `--lang fr|en|he|ar` ou la variab
 | Interface web | `ui` | `interface` | `ממשק` | `واجهة` |
 
 ```bash
-python -m namematch וריאציות "מוחמד עדוי"                 # 3 variantes anglaises + arabe + hébreu
-python -m namematch variants "محمد عدوي" -n 5 -d            # 5 variantes + détail mot par mot
-python -m namematch variants "Mohammad Adawi" -o noms.csv   # .csv = noms en colonne A
-python -m namematch تقييم "Mohammad Adawi" "מוחמד עדוי"     # -> 100/100
+python -m namematch וריאציות "NOM"                # 3 variantes anglaises + arabe + hébreu
+python -m namematch variants "NOM" -n 5 -d          # 5 variantes + détail mot par mot
+python -m namematch variants "NOM" -o noms.csv      # .csv = noms en colonne A
+python -m namematch تقييم "NOM 1" "NOM 2"           # score de 0 à 100
 python -m namematch רשימה noms.txt -o variantes.csv --scripts en,ar
 python -m namematch compare a.csv b.csv --col-a nom --col-b name --threshold 75 -o out.csv
 ```
@@ -59,21 +56,21 @@ Les options ont aussi des alias : `-n` = `--מספר` = `--عدد`, `-o` = `--פ
    écrits en latin, en arabe et en hébreu. Les 3 premières orthographes latines sont celles qui sont
    proposées en premier. **Pour corriger ou ajouter un nom, il suffit d'ajouter une ligne :**
    ```
-   adawi | Adawi, Adwi, Adawy | عدوي, العدوي | עדוי, עדווי, עדאווי
+   identifiant | variantes latines | variantes arabes | variantes hébraïques
    ```
 2. **Règles de translittération** pour les noms absents du lexique. Le mot hébreu ou arabe est découpé en
    unités phonétiques (consonnes, alef, ayin, vav, yod, ה final…). On en déduit les orthographes anglaises
    les plus probables, avec plusieurs conventions :
-   - la nisba **-awi** : עדוי → Adawi ;
-   - le schème **CaaCiC** : ג'אבר → Jaber ;
-   - la terminaison **-a / -eh** : מסארוה → Masarwa ;
+   - la nisba **-awi** ;
+   - le schème **CaaCiC** ;
+   - la terminaison **-a / -eh** ;
    - le geresh : ח' = kh, ג' = j, ע' = gh ;
    - l'article **Al-**.
 
    Une variante n'est gardée que si elle matche le nom d'origine (score ≥ 80).
 3. **Score** : chaque mot est réduit à un squelette consonantique qui ne dépend pas de l'écriture
    (clé fine et clé souple). Les mots sont appariés quel que soit leur ordre, et les particules
-   (Abu, Bin, Al…) sont ignorées.
+   (article, « fils de »…) sont ignorées.
 
 ## Structure
 
