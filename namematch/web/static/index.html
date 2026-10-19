@@ -1,0 +1,122 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>NameMatch</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 32 32%27%3E%3Crect width=%2732%27 height=%2732%27 rx=%278%27 fill=%27%230f766e%27/%3E%3Ctext x=%2716%27 y=%2722%27 font-size=%2716%27 text-anchor=%27middle%27 fill=%27white%27 font-family=%27sans-serif%27%3EN%3C/text%3E%3C/svg%3E">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header class="top">
+  <div class="brand">
+    <span class="logo">א·ع·A</span>
+    <div>
+      <h1>NameMatch</h1>
+      <p class="tagline" data-i18n="tagline"></p>
+    </div>
+  </div>
+  <nav class="langs" aria-label="language">
+    <button data-lang="fr">FR</button>
+    <button data-lang="en">EN</button>
+    <button data-lang="he">עב</button>
+    <button data-lang="ar">عر</button>
+  </nav>
+</header>
+
+<nav class="tabs" role="tablist">
+  <button role="tab" data-tab="gen" data-i18n="tab_gen"></button>
+  <button role="tab" data-tab="batch" data-i18n="tab_batch"></button>
+  <button role="tab" data-tab="score" data-i18n="tab_score"></button>
+  <button role="tab" data-tab="compare" data-i18n="tab_compare"></button>
+</nav>
+
+<div class="layout">
+<main>
+  <!-- Générer -->
+  <section class="panel" id="tab-gen">
+    <form id="gen-form" class="row">
+      <input id="gen-name" dir="auto" autocomplete="off" autofocus data-i18n-ph="ph_name">
+      <label class="count"><span data-i18n="count"></span>
+        <input id="gen-count" type="number" min="1" max="20" value="3">
+      </label>
+      <button class="primary" type="submit" data-i18n="generate"></button>
+    </form>
+    <div id="gen-out" class="cards"></div>
+    <details id="gen-details" hidden>
+      <summary data-i18n="details"></summary>
+      <div id="gen-tokens"></div>
+    </details>
+  </section>
+
+  <!-- Liste -->
+  <section class="panel" id="tab-batch" hidden>
+    <p class="hint" data-i18n="batch_hint"></p>
+    <textarea id="batch-input" dir="auto" rows="8" data-i18n-ph="ph_batch"></textarea>
+    <div class="row wrap">
+      <label class="file"><input type="file" id="batch-file" accept=".txt,.csv"><span data-i18n="load_file"></span></label>
+      <label class="count"><span data-i18n="count"></span>
+        <input id="batch-count" type="number" min="1" max="20" value="3">
+      </label>
+      <label class="chk"><input type="checkbox" id="inc-en" checked> <span data-i18n="english"></span></label>
+      <label class="chk"><input type="checkbox" id="inc-ar" checked> <span data-i18n="arabic"></span></label>
+      <label class="chk"><input type="checkbox" id="inc-he" checked> <span data-i18n="hebrew"></span></label>
+      <button class="primary" id="batch-run" data-i18n="generate"></button>
+    </div>
+    <div id="batch-actions" class="row wrap" hidden>
+      <button id="batch-csv" class="primary" data-i18n="download_csv"></button>
+      <button id="batch-copy" data-i18n="copy_all"></button>
+      <button id="batch-add" data-i18n="add_all_list"></button>
+      <span id="batch-stats" class="muted"></span>
+    </div>
+    <div class="table-wrap"><table id="batch-table"></table></div>
+  </section>
+
+  <!-- Score -->
+  <section class="panel" id="tab-score" hidden>
+    <form id="score-form" class="grid2">
+      <input id="score-a" dir="auto" data-i18n-ph="ph_a">
+      <input id="score-b" dir="auto" data-i18n-ph="ph_b">
+      <button class="primary" type="submit" data-i18n="compute"></button>
+    </form>
+    <div id="score-out"></div>
+  </section>
+
+  <!-- Comparer -->
+  <section class="panel" id="tab-compare" hidden>
+    <p class="hint" data-i18n="compare_hint"></p>
+    <div class="grid2">
+      <textarea id="cmp-a" dir="auto" rows="8" data-i18n-ph="ph_list_a"></textarea>
+      <textarea id="cmp-b" dir="auto" rows="8" data-i18n-ph="ph_list_b"></textarea>
+    </div>
+    <div class="row wrap">
+      <label class="count"><span data-i18n="threshold"></span>
+        <input id="cmp-th" type="range" min="50" max="100" value="75"><b id="cmp-th-v">75</b>
+      </label>
+      <button class="primary" id="cmp-run" data-i18n="compare"></button>
+      <button id="cmp-csv" data-i18n="download_csv" hidden></button>
+    </div>
+    <div class="table-wrap"><table id="cmp-table"></table></div>
+  </section>
+</main>
+
+<!-- Liste CSV (panier) -->
+<aside class="basket">
+  <div class="basket-head">
+    <h2 data-i18n="my_list"></h2>
+    <span id="basket-count" class="pill">0</span>
+  </div>
+  <p class="hint" data-i18n="list_hint"></p>
+  <ol id="basket"></ol>
+  <div class="basket-actions">
+    <button class="primary" id="basket-csv" data-i18n="download_csv"></button>
+    <button id="basket-copy" data-i18n="copy_all"></button>
+    <button id="basket-clear" class="ghost" data-i18n="clear"></button>
+  </div>
+</aside>
+</div>
+
+<div id="toast" role="status" aria-live="polite"></div>
+<script src="app.js"></script>
+</body>
+</html>

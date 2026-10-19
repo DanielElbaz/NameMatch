@@ -1,0 +1,164 @@
+# Lexique NameMatch
+# Format : id | variantes latines | variantes arabes | variantes hébraïques
+# Les 3 premières variantes latines sont celles proposées en priorité (orthographe anglaise).
+# Un id qui commence par "~" est une particule (Abu, Bin, Al...) : gardée dans les variantes,
+# ignorée dans le calcul du score.
+#
+# --- particules ---
+~abu      | Abu, Abou, Abo, Aboo                  | أبو, ابو            | אבו
+~ibn      | Ibn, Bin                               | ابن, بن             | אבן, בין
+~ben      | Ben                                    |                     | בן
+~bint     | Bint, Bat                              | بنت                 | בת
+~bar      | Bar                                    |                     | בר
+~al       | Al, El, Ul                             | ال                  | אל
+~umm      | Umm, Um, Om                            | أم, ام              | אום, אם
+~haj      | Haj, Hajj, Hajj                        | حاج                 | חאג', חאג
+#
+# --- prénoms arabes ---
+mohammed  | Mohammad, Mohammed, Muhammad, Mohamed, Mohamad, Muhammed, Mouhamad, Muhamad, Mohammd, Mehmet | محمد | מוחמד, מחמד, מוחמאד, מוחממד
+ahmad     | Ahmad, Ahmed, Ahmet, Achmed, Ahmat     | أحمد, احمد          | אחמד, אחמאד, אחמט
+mahmoud   | Mahmoud, Mahmood, Mahmud, Mahmod       | محمود               | מחמוד, מחמוד
+mustafa   | Mustafa, Moustafa, Mostafa, Mustapha   | مصطفى, مصطفي        | מוסטפא, מוצטפא, מצטפא, מוסטפה
+ibrahim   | Ibrahim, Ebrahim, Ibraheem, Brahim, Avraham, Abraham | إبراهيم, ابراهيم | אברהים, איברהים, אבראהים, איבראהים, אברהם
+ismail    | Ismail, Ismael, Esmail, Ishmael, Yishmael | إسماعيل, اسماعيل | איסמעיל, אסמעיל, איסמאעיל, אסמאעיל, ישמעאל
+yusuf     | Yousef, Yusuf, Youssef, Yousuf, Yosef, Joseph, Yusef | يوسف | יוסף, יוסוף, יוסאף
+musa      | Musa, Mousa, Moussa, Moosa, Moshe, Moses | موسى, موسي       | מוסא, מוסה, מוסה, משה
+dawud     | Daoud, Dawood, Dawud, Daud, David      | داود, داوود         | דאוד, דאווד, דוד
+sulaiman  | Suleiman, Sulaiman, Sulayman, Soliman, Slimane, Shlomo | سليمان | סולימאן, סלימאן, סולימן, סלימן, שלמה
+yaqub     | Yacoub, Yaqub, Yaakub, Yakub, Yaakov, Jacob | يعقوب          | יעקוב, יעקב
+ishaq     | Ishaq, Ishak, Isaac, Yitzhak           | إسحاق, اسحاق        | איסחאק, אסחאק, יצחק
+harun     | Haroun, Harun, Haron, Aaron, Aharon    | هارون               | הארון, הרון, אהרון
+yunus     | Younes, Yunus, Younis, Yunes, Yonah    | يونس                | יונס, יוניס, יונה
+ilyas     | Elias, Ilyas, Ilias, Elyas, Eliyahu    | إلياس, الياس        | אליאס, איליאס, אליהו
+maryam    | Mariam, Maryam, Miriam, Meryem         | مريم                | מרים, מריאם, מריים
+sara      | Sara, Sarah, Sarra                     | سارة, ساره, سارا    | סארה, סארא, שרה
+umar      | Omar, Umar, Omer, Oumar                | عمر                 | עומר, עמר, עומאר
+ali       | Ali, Aly, Alee                         | علي, على            | עלי, עאלי
+uthman    | Othman, Uthman, Osman, Othmane         | عثمان               | עות'מאן, עותמאן, עוסמאן
+hassan    | Hassan, Hasan, Hassane                 | حسن                 | חסן, חסאן, חאסן
+hussein   | Hussein, Hussain, Husayn, Hossein, Hussin | حسين             | חוסיין, חוסין, חוסאין, חסין
+khaled    | Khaled, Khalid, Haled, Chaled          | خالد                | ח'אלד, ח'אליד, חאלד, כאלד
+tariq     | Tareq, Tarek, Tariq, Tarik             | طارق                | טארק, טאריק, טרק
+sami      | Sami, Samy, Sammy                      | سامي                | סאמי, סמי
+rami      | Rami, Ramy, Ramie                      | رامي                | ראמי, רמי
+karim     | Karim, Kareem, Kerim                   | كريم                | כרים, כריים, קרים
+abd       | Abed, Abd, Abdel, Abdul, Abdal         | عبد                 | עבד, עאבד, עבדל, עבדול
+allah     | Allah, Ullah, Alla                     | الله                | אללה, אלה
+abdallah  | Abdallah, Abdullah, Abdalla, Abdulla, Abdellah | عبدالله, عبد الله | עבדאללה, עבדאלה, עבדללה, עבדאללא
+rahman    | Rahman, Rahmane, Rehman                | الرحمن, رحمن        | רחמן, רחמאן
+abdelrahman | Abdelrahman, Abdulrahman, Abdel Rahman, Abd Alrahman | عبدالرحمن | עבד אלרחמן, עבדאלרחמן, עבד אל-רחמן
+saleh     | Saleh, Salih, Saaleh                   | صالح                | סאלח, סאלך, סאליח, צאלח
+salah     | Salah, Salaheddine                     | صلاح                | סלאח, צלאח, סלח
+zakaria   | Zakaria, Zakariya, Zakariyya, Zechariah | زكريا             | זכריא, זכריה, זכרייא
+yahya     | Yahya, Yehia, Yahia, Yehya              | يحيى, يحيي          | יחיא, יחיה
+nader     | Nader, Nadir, Nadeer                   | نادر                | נאדר, נאדיר, נדר
+fadi      | Fadi, Fady, Fadee                      | فادي                | פאדי, פדי
+walid     | Walid, Waleed, Oualid                  | وليد                | וליד, ואליד, ווליד
+jamal     | Jamal, Gamal, Jamaal, Djamal           | جمال                | ג'מאל, ג'מל, גמאל
+hamza     | Hamza, Hamzah, Hamzeh                  | حمزة, حمزه          | חמזה, חמזא
+maher     | Maher, Mahir, Maaher                   | ماهر                | מאהר, מאהיר, מהר
+said      | Said, Saeed, Saied, Sayed              | سعيد                | סעיד, סאעיד
+nasser    | Nasser, Naser, Nasir, Nassar, Nasr     | ناصر                | נאסר, נאצר, נאסיר
+hatem     | Hatem, Hatim, Hatam                    | حاتم                | חאתם, חאתים, חתם
+ayman     | Ayman, Aiman, Aymen, Eiman             | أيمن, ايمن          | איימן, אימן
+amir      | Amir, Ameer, Emir                      | أمير, امير          | אמיר, אאמיר
+amer      | Amer, Aamer, Amr                       | عامر                | עאמר, עמר
+hanna     | Hanna, Hana, Hannah                    | حنا                 | חנא, חנה
+mansour   | Mansour, Mansur, Mansoor               | منصور               | מנסור, מנצור
+barak     | Barak, Baraka, Barack                  | بركة                | ברכה, בראכה
+nizar     | Nizar, Nezar, Nizaar                   | نزار                | ניזאר, נזאר
+anas      | Anas, Annas                            | أنس, انس            | אנס, אנאס
+osama     | Osama, Usama, Ousama, Usameh           | أسامة, اسامة        | אוסאמה, אוסמה, אסאמה
+bilal     | Bilal, Belal, Bilaal                   | بلال                | בילאל, בלאל
+jihad     | Jihad, Jehad, Gihad                    | جهاد                | ג'האד, ג'יהאד
+majd      | Majd, Magd, Majed                      | مجد                 | מג'ד
+majed     | Majed, Majid, Maged                    | ماجد                | מאג'ד, מאג'יד
+raed      | Raed, Raid, Raaed                      | رائد, رايد          | ראאד, ראיד, ראעד
+ziad      | Ziad, Ziyad, Zeyad                     | زياد                | זיאד, זיאאד
+iyad      | Iyad, Eyad, Iyyad                      | إياد, اياد          | איאד, אייאד
+imad      | Imad, Emad, Imaad                      | عماد                | עימאד, עמאד
+adel      | Adel, Adil, Aadel                      | عادل                | עאדל, עאדיל, עדל
+basel     | Basel, Basil, Bassel                   | باسل                | באסל, באסיל
+wael      | Wael, Wail, Wa'el                      | وائل, وايل          | ואאל, ואיל, וואל
+jamil     | Jamil, Jameel, Gamil                   | جميل                | ג'מיל
+nabil     | Nabil, Nabeel, Nabeil                  | نبيل                | נביל
+khalil    | Khalil, Khaleel, Halil                 | خليل                | ח'ליל, חליל
+ibtisam   | Ibtisam, Ibtissam, Ebtisam             | ابتسام              | איבתיסאם, אבתסאם
+fatima    | Fatima, Fatma, Fatmeh, Fatimah         | فاطمة               | פאטמה, פאטימה, פטמה
+aisha     | Aisha, Ayesha, Aysha, Aicha            | عائشة, عايشة        | עאישה, עאיישה, עיישה
+khadija   | Khadija, Khadijah, Hadija              | خديجة               | ח'דיג'ה, חדיג'ה
+nour      | Nour, Noor, Nur                        | نور                 | נור, נוּר
+rania     | Rania, Raniya, Ranya                   | رانيا               | ראניה, רניה, ראניא
+lina      | Lina, Leena, Lena                      | لينا                | לינא, לינה
+huda      | Huda, Houda, Hoda                      | هدى                 | הודא, הודה
+samira    | Samira, Sameera, Samera                | سميرة               | סמירה, סמירא
+amal      | Amal, Amaal                            | أمل, امل            | אמל, אמאל
+reem      | Reem, Rim, Rima                        | ريم                 | רים
+yasmin    | Yasmin, Yasmine, Yasmeen, Jasmin       | ياسمين              | יאסמין, יסמין
+hiba      | Hiba, Heba, Hibah                      | هبة, هبه            | היבה, הבה, היבא
+manar     | Manar, Manaar                          | منار                | מנאר
+#
+# --- noms de famille fréquents (arabes, Israël / Palestine / Liban / Jordanie) ---
+adawi     | Adawi, Adwi, Adawy, Edawi, Al-Adawi    | عدوي, العدوي        | עדוי, עדווי, עדאווי, אלעדוי
+masarwa   | Masarwa, Masarweh, Masarwah, Massarwa  | مصاروة, مصاروه      | מסארוה, מצארוה, מסרווה
+jabarin   | Jabarin, Jabareen, Jabbarin, Jabarine  | جبارين              | ג'בארין, ג'בארין, גבארין
+jaber     | Jaber, Jabir, Jabr, Gaber              | جابر                | ג'אבר, ג'בר, גאבר
+agbaria   | Agbaria, Aghbaria, Igbaria, Ighbariah  | اغبارية, إغبارية     | אגבאריה, אע'בריה, אגבריה
+mahajna   | Mahajna, Mahajneh, Mhajna, Mahagna     | محاجنة              | מחאג'נה, מחג'נה, מחאג'נה
+zoabi     | Zoabi, Zuabi, Zouabi, Zuabe            | زعبي, الزعبي        | זועבי, זעבי, זועבי
+khatib    | Khatib, Khateeb, Al-Khatib, Hatib      | خطيب, الخطيب        | ח'טיב, חטיב, אל-ח'טיב
+tibi      | Tibi, Teebi, Al-Tibi                   | طيبي, الطيبي        | טיבי
+darawshe  | Darawshe, Darawsheh, Darawsha, Darawshi | دراوشة             | דראושה, דראושי, דרוושה
+kabha     | Kabha, Kabaha, Qabha                   | كبها                | כבהא, כבהה, קבהא
+abed      | Abed, Abid, Abdi                       | عابد                | עאבד, עאביד
+hijazi    | Hijazi, Hejazi, Higazi, Hijazy         | حجازي               | חיג'אזי, חג'אזי
+nasrallah | Nasrallah, Nasrallah, Nasrullah        | نصرالله, نصر الله   | נסראללה, נסרללה, נצראללה
+saadi     | Saadi, Sa'di, Saady, Al-Saadi          | سعدي, السعدي        | סעדי, סאעדי
+yassin    | Yassin, Yasin, Yaseen, Yassine         | ياسين               | יאסין, יסין
+bishara   | Bishara, Bechara, Beshara              | بشارة               | בשארה, בישארה
+assadi    | Assadi, Asadi, Asaadi                  | أسدي, اسدي, الأسدي  | אסדי, אסאדי
+shalabi   | Shalabi, Shalaby, Chalabi              | شلبي                | שלבי
+haddad    | Haddad, Hadad                          | حداد                | חדאד, חדד
+khoury    | Khoury, Khouri, Khuri, Khury           | خوري                | ח'ורי, חורי, כורי
+sabbagh   | Sabbagh, Sabagh, Sabbag                | صباغ                | סבאע', צבאע', סבאג
+abbas     | Abbas, Abas, Abass                     | عباس                | עבאס
+qasem     | Kassem, Qasem, Qassem, Kasem, Kasim    | قاسم                | קאסם, קאסים
+taha      | Taha, Taaha                            | طه                  | טאהא, טאהה, טהא
+ghanem    | Ghanem, Ghanim, Ganem                  | غانم                | ע'אנם, גאנם, ע'אנים
+habib     | Habib, Habeeb, Haviv                   | حبيب                | חביב
+hamdan    | Hamdan, Hamdane                        | حمدان               | חמדאן, חמדן
+abu-ghosh | Abu Ghosh, Abu Gosh, Abugosh           | أبو غوش             | אבו גוש, אבו ע'וש
+mazen     | Mazen, Mazin                           | مازن                | מאזן
+marwan    | Marwan, Marwane                        | مروان               | מרואן, מרוואן
+radwan    | Radwan, Redwan, Ridwan                 | رضوان               | רדואן, רדוואן, רצ'ואן
+adnan     | Adnan, Adnane                          | عدنان               | עדנאן
+sabri     | Sabri, Sabry                           | صبري                | צברי, סברי
+sharif    | Sharif, Sherif, Shareef                | شريف                | שריף, שריף
+#
+# --- prénoms / noms hébreux et juifs fréquents ---
+cohen     | Cohen, Kohen, Cohn, Kahn               | كوهين, كوهن          | כהן, כוהן
+levi      | Levi, Levy, Lewi                       | ليفي, لاوي           | לוי
+mizrahi   | Mizrahi, Mizrachi, Misrahi             | مزراحي               | מזרחי
+peretz    | Peretz, Perez, Peres                   | بيرتس, بيرس          | פרץ
+biton     | Biton, Bitton, Bitan                   | بيطون, بيتون         | ביטון
+dahan     | Dahan, Dahhan                          | دهان                 | דהן
+avraham   | Avraham, Abraham, Avram                | أبراهام               | אברהם
+friedman  | Friedman, Fridman, Freedman            | فريدمان              | פרידמן
+elbaz     | Elbaz, Albaz, Elbez, Albez             | البز                 | אלבז, אלבאז
+amar      | Amar, Ammar, Ammar                     | عمار                 | עמר, עמאר, אמר
+ohana     | Ohana, Ouhana, Ohanna                  | أوحنا                | אוחנה, אוחנא
+azoulay   | Azoulay, Azulay, Azoulai               | أزولاي               | אזולאי, אזולאיי
+yosef     | Yosef, Joseph, Yossef                  | يوسف                 | יוסף
+yossi     | Yossi, Yosi, Yossy                     | يوسي                 | יוסי
+david     | David, Dovid                           | داود, دافيد           | דוד
+moshe     | Moshe, Moses, Moche                    | موشيه                | משה
+shlomo    | Shlomo, Shelomo, Solomon               | شلومو                | שלמה
+yaakov    | Yaakov, Yakov, Jacob                   | يعقوب                 | יעקב
+yitzhak   | Yitzhak, Yitzchak, Itzhak, Isaac       | يتسحاق                | יצחק
+eliyahu   | Eliyahu, Eliahu, Elijah                | إلياهو                | אליהו
+binyamin  | Binyamin, Benjamin, Benyamin           | بنيامين               | בנימין
+rachel    | Rachel, Rahel, Rakhel                  | راحيل                 | רחל
+miriam    | Miriam, Myriam, Mirjam                 | مريام                 | מרים
+daniel    | Daniel, Danielle, Danyel               | دانيال, دانيئيل        | דניאל
+michael   | Michael, Mikhael, Michel               | ميخائيل               | מיכאל
+haim      | Haim, Chaim, Hayim                     | حاييم                 | חיים
